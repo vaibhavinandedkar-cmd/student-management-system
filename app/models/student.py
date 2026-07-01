@@ -6,66 +6,58 @@ from app.config.database import db
 class Student(db.Model):
     """
     Student Model
-    Represents the students table.
     """
 
     __tablename__ = "students"
 
-    # -------------------------
-    # Primary Key
-    # -------------------------
+    id = db.Column(db.Integer, primary_key=True)
 
-    student_id = db.Column(
-        db.Integer,
-        primary_key=True
+    student_code = db.Column(
+        db.String(20),
+        unique=True,
+        nullable=False
     )
 
-    # -------------------------
-    # Basic Information
-    # -------------------------
-
     first_name = db.Column(
-        db.String(50),
+        db.String(100),
         nullable=False
     )
 
     last_name = db.Column(
-        db.String(50),
+        db.String(100),
         nullable=False
     )
 
     email = db.Column(
-        db.String(100),
+        db.String(120),
         unique=True,
         nullable=False
     )
 
     phone = db.Column(
-        db.String(20)
-    )
-
-    date_of_birth = db.Column(
-        db.Date
+        db.String(15)
     )
 
     gender = db.Column(
-        db.String(20)
+        db.String(10)
     )
 
-    admission_date = db.Column(
-        db.Date,
-        nullable=False
+    department = db.Column(
+        db.String(100)
+    )
+
+    semester = db.Column(
+        db.Integer
+    )
+
+    address = db.Column(
+        db.Text
     )
 
     status = db.Column(
         db.String(20),
-        nullable=False,
         default="Active"
     )
-
-    # -------------------------
-    # Audit Columns
-    # -------------------------
 
     created_at = db.Column(
         db.DateTime,
@@ -77,3 +69,6 @@ class Student(db.Model):
         default=datetime.utcnow,
         onupdate=datetime.utcnow
     )
+
+    def __repr__(self):
+        return f"<Student {self.student_code}>"
