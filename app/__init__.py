@@ -1,6 +1,7 @@
 from flask import Flask
 
 from app.config.settings import Config
+from app.config.database import db, migrate
 
 
 def create_app():
@@ -13,6 +14,12 @@ def create_app():
 
     # Load configuration
     app.config.from_object(Config)
+
+    # Initialize Database
+    db.init_app(app)
+
+    # Initialize Migrations
+    migrate.init_app(app, db)
 
     # Register Routes
     from app.routes.home import home_bp
