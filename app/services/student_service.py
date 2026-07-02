@@ -12,64 +12,54 @@ class StudentService:
     def __init__(self):
         self.student_repository = StudentRepository()
 
-    def create_student(
-        self,
-        student: Student
-    ) -> Student:
+    def create_student(self, student: Student) -> Student:
         """
         Create a new student.
-
-        Business Rules:
-        - Student code must be unique.
-        - Email must be unique.
         """
 
-        if self.student_repository.get_by_student_code(
-            student.student_code
-        ):
-            raise ValueError(
-                "Student code already exists."
-            )
+        if self.student_repository.get_by_student_code(student.student_code):
+            raise ValueError("Student code already exists.")
 
-        if self.student_repository.get_by_email(
-            student.email
-        ):
-            raise ValueError(
-                "Email already exists."
-            )
+        if self.student_repository.get_by_email(student.email):
+            raise ValueError("Email already exists.")
 
         return self.student_repository.create(student)
 
-    def get_student_by_id(
-        self,
-        student_id: int
-    ) -> Optional[Student]:
+    def get_student_by_id(self, student_id: int) -> Optional[Student]:
         """
-        Retrieve a student by ID.
+        Retrieve student by ID.
         """
         return self.student_repository.get_by_id(student_id)
 
-    def get_all_students(
-        self
-    ) -> List[Student]:
+    def get_all_students(self) -> List[Student]:
         """
         Retrieve all students.
         """
         return self.student_repository.get_all()
 
-    def update_student(
-        self
-    ) -> None:
+    def update_student(self, student_id: int, data: dict) -> Optional[Student]:
         """
-        Commit student changes.
+        Update student.
         """
-        self.student_repository.update()
 
-    def delete_student(
-        self,
-        student: Student
-    ) -> None:
+        student = self.student_repository.get_by_id(student_id)
+
+        if not student:
+            return None
+
+        for key, value in data.items():
+            setattr(student, key, value)
+
+        return self.student_repository.update(student)
+
+    def delete_student(self, student_id: int) -> bool:
         """
-        Delete a student.
+        Delete student.
         """
-        self.student_repository.delete(student)
+
+        student = self.student_repository.get_by_id(student_id)
+
+        if not student:
+            return False
+
+        return self.student_repository.delete(student)

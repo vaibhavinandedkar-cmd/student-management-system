@@ -83,3 +83,23 @@ def create_student():
         "message": "Student created successfully.",
         "data": student_response_schema.dump(student)
     }), 201
+
+
+@student_bp.route("/<int:student_id>", methods=["DELETE"])
+def delete_student(student_id):
+    """
+    Delete student
+    """
+
+    deleted = student_service.delete_student(student_id)
+
+    if not deleted:
+        return jsonify({
+            "success": False,
+            "message": "Student not found."
+        }), 404
+
+    return jsonify({
+        "success": True,
+        "message": "Student deleted successfully."
+    }), 200

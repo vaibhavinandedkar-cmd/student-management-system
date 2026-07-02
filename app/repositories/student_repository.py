@@ -63,7 +63,7 @@ class StudentRepository:
         """
         db.session.commit()
 
-    def delete(self, student: Student) -> None:
+    def delete(self, student: Student) -> bool:
         """
         Delete student.
         """
