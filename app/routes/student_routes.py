@@ -28,6 +28,25 @@ def get_students():
         students_response_schema.dump(students)
     ), 200
 
+@student_bp.route("/<int:student_id>", methods=["GET"])
+def get_student(student_id):
+    """
+    Get student by ID
+    """
+
+    student = student_service.get_student_by_id(student_id)
+
+    if not student:
+        return jsonify({
+            "success": False,
+            "message": "Student not found."
+        }), 404
+
+    return jsonify({
+        "success": True,
+        "message": "Student retrieved successfully.",
+        "data": student_response_schema.dump(student)
+    }), 200
 
 @student_bp.route("/", methods=["POST"])
 def create_student():
