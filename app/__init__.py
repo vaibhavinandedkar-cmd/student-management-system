@@ -2,6 +2,7 @@ from flask import Flask
 
 from app.config.settings import Config
 from app.config.database import db, migrate
+from app.routes import register_blueprints
 
 
 def create_app():
@@ -26,6 +27,6 @@ def create_app():
 
     # Register Routes
     from app.routes.home import home_bp
-    app.register_blueprint(home_bp)
+    register_blueprints(app)
 
     return app
