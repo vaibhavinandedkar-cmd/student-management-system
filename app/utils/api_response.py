@@ -1,31 +1,25 @@
 from flask import jsonify
-from app.utils.api_response import success_response
-from app.utils.api_response import error_response
+
 
 def success_response(
     message="Success",
     data=None,
     status_code=200
 ):
-    """
-    Standard success response.
-    """
-
-    return success_response(
-    message="Student deleted successfully."
-) 
+    return jsonify({
+        "success": True,
+        "message": message,
+        "data": data
+    }), status_code
 
 
 def error_response(
     message="Error",
     errors=None,
-    status_code=404
+    status_code=400
 ):
-    """
-    Standard error response.
-    """
-
-    return error_response(
-    message="Student not found.",
-    status_code=404
-)
+    return jsonify({
+        "success": False,
+        "message": message,
+        "errors": errors
+    }), status_code

@@ -40,21 +40,4 @@ class User(BaseModel):
         back_populates="users"
     )
 
-    is_verified = db.Column(
-    db.Boolean,
-    default=False
-    )
-
-    failed_login_attempts = db.Column(
-    db.Integer,
-    default=0
-    ) 
-
-    locked_until = db.Column(
-    db.DateTime,
-    nullable=True
-    )
-
-    password_changed_at = db.Column(
-    db.DateTime
-    )
+  
