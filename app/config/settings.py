@@ -5,6 +5,13 @@ class Config:
     """
     Base configuration for the Student Management System.
     """
+    # ==========================
+    # JWT Configuration
+    # ==========================
+
+    JWT_SECRET_KEY = "student-management-secret-key"
+
+    JWT_ACCESS_TOKEN_EXPIRES = 3600
 
     # ----------------------------------------
     # Flask Configuration

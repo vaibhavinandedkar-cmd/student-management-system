@@ -1,3 +1,4 @@
+from app.config.database import db
 from app.models.user import User
 
 
@@ -5,7 +6,7 @@ class AuthRepository:
 
     def get_by_username(
         self,
-        username
+        username: str
     ):
         return User.query.filter_by(
             username=username
@@ -13,12 +14,11 @@ class AuthRepository:
 
     def get_by_email(
         self,
-        email
+        email: str
     ):
         return User.query.filter_by(
             email=email
         ).first()
 
-    def update(self):
-        from app.config.database import db
+    def save(self):
         db.session.commit()

@@ -1,9 +1,14 @@
 from flask import Flask
-
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 from app.config.settings import Config
 from app.config.database import db, migrate
 from app.routes import register_blueprints
 from app.errors import register_error_handlers
+
+
+bcrypt = Bcrypt()
+jwt = JWTManager()
 
 def create_app():
     """
@@ -30,7 +35,11 @@ def create_app():
     from app.routes.home import home_bp
     register_blueprints(app)
     
+    # Initialize Extensions
+    bcrypt.init_app(app)
+    jwt.init_app(app)
 
+    # Register Error Handlers
     register_error_handlers(app)
 
     return app
