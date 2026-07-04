@@ -7,6 +7,9 @@ class SubjectService(BaseService):
     def __init__(self):
         super().__init__(SubjectRepository())
 
+    def search(self, query):
+        return self.repository.search(query)
+
     def get_by_subject_code(self, subject_code):
         return self.repository.get_by_subject_code(subject_code)
 

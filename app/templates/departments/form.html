@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_header %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">{{ title }}</h1>
+        <p class="text-muted mb-0">Configure department details for academic administration.</p>
+    </div>
+    <a href="{{ url_for('erp.departments') }}" class="btn btn-outline-secondary">Back to departments</a>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <form method="post" action="{{ form_action }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Department Code</label>
+                    <input type="text" name="department_code" class="form-control" value="{{ department.department_code if department else '' }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Department Name</label>
+                    <input type="text" name="department_name" class="form-control" value="{{ department.department_name if department else '' }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Head of Department</label>
+                    <input type="text" name="hod_name" class="form-control" value="{{ department.hod_name if department else '' }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        {% for status in status_options %}
+                            <option value="{{ status }}" {% if department and department.status == status %}selected{% endif %}>{{ status }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="4">{{ department.description if department else '' }}</textarea>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Save Department</button>
+                <a href="{{ url_for('erp.departments') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

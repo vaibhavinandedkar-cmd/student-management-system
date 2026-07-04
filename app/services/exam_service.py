@@ -7,6 +7,9 @@ class ExamService(BaseService):
     def __init__(self):
         super().__init__(ExamRepository())
 
+    def search(self, query):
+        return self.repository.search(query)
+
     def get_by_subject(self, subject_id):
         return self.repository.get_by_subject(subject_id)
 

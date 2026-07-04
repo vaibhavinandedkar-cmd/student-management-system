@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Audit Logs{% endblock %}
+{% block page_header %}Audit Trail{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Audit Logs</h1>
+        <p class="text-muted mb-0">View system audit entries and review activity history.</p>
+    </div>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Action</th>
+                        <th>Entity</th>
+                        <th>Entity ID</th>
+                        <th>User ID</th>
+                        <th>IP Address</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if audit_logs %}
+                        {% for activity in audit_logs|reverse %}
+                            <tr>
+                                <td>{{ activity.action }}</td>
+                                <td>{{ activity.entity_name }}</td>
+                                <td>{{ activity.entity_id or 'N/A' }}</td>
+                                <td>{{ activity.user_id or 'System' }}</td>
+                                <td>{{ activity.ip_address or 'Untracked' }}</td>
+                                <td>{{ activity.created_at.strftime('%b %d, %Y %H:%M') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="6" class="text-center text-muted py-4">No audit entries available.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

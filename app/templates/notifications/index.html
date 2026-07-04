@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Notifications{% endblock %}
+{% block page_header %}Notification Center{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Notifications</h1>
+        <p class="text-muted mb-0">Review communication alerts and system notices for users.</p>
+    </div>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="list-group">
+            {% if notifications %}
+                {% for message in notifications|reverse %}
+                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1">{{ message.title }}</h6>
+                            <p class="mb-1 text-muted">{{ message.message }}</p>
+                            <small class="text-muted">User ID: {{ message.user_id }}</small>
+                        </div>
+                        <span class="badge bg-{{ 'success' if message.is_read else 'warning' }} align-self-start">{{ 'Read' if message.is_read else 'New' }}</span>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="list-group-item text-center text-muted py-5">No notifications have been delivered.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

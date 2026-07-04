@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Payments{% endblock %}
+{% block page_header %}Payment Ledger{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Payments</h1>
+        <p class="text-muted mb-0">Track receivables and transaction details for student fees.</p>
+    </div>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Transaction</th>
+                        <th>Fee Owner</th>
+                        <th>Mode</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if payments %}
+                        {% for payment in payments %}
+                            <tr>
+                                <td>{{ payment.transaction_reference or 'N/A' }}</td>
+                                <td>{{ payment.fee.student.first_name if payment.fee and payment.fee.student else 'Unknown' }}</td>
+                                <td>{{ payment.payment_mode or 'N/A' }}</td>
+                                <td>{{ payment.amount }}</td>
+                                <td>{{ payment.payment_date or 'TBD' }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="5" class="text-center text-muted py-4">No payment transactions recorded.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+.erp-page {
+    min-height: 100vh;
+    background: #f4f6fa;
+}
+.app-shell {
+    min-height: 100vh;
+}
+.sidebar {
+    width: 280px;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    transition: width 0.24s ease;
+    z-index: 1100;
+}
+.sidebar.collapsed {
+    width: 80px;
+}
+.sidebar .nav-link {
+    border-radius: 0.75rem;
+    padding: 0.9rem 1rem;
+}
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+    background: rgba(255,255,255,0.08);
+}
+.sidebar .sidebar-brand {
+    min-height: 90px;
+}
+.app-content {
+    min-height: 100vh;
+}
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+}
+.content-area {
+    padding-bottom: 2rem;
+}
+.chart-placeholder {
+    min-height: 300px;
+}
+.table thead th {
+    border-bottom: 2px solid #eef2f7;
+}
+.card {
+    border-radius: 1rem;
+}
+.footer {
+    background: #ffffff;
+}
+.toast-container .toast {
+    min-width: 280px;
+}

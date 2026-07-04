@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_header %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">{{ title }}</h1>
+        <p class="text-muted mb-0">Create or update subject details and curricular mapping.</p>
+    </div>
+    <a href="{{ url_for('erp.subjects') }}" class="btn btn-outline-secondary">Back to subjects</a>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <form method="post" action="{{ form_action }}">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Subject Code</label>
+                    <input type="text" name="subject_code" class="form-control" value="{{ subject.subject_code if subject else '' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Subject Name</label>
+                    <input type="text" name="subject_name" class="form-control" value="{{ subject.subject_name if subject else '' }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Course</label>
+                    <select name="course_id" class="form-select" required>
+                        <option value="">Choose course</option>
+                        {% for course in courses %}
+                            <option value="{{ course.id }}" {% if subject and subject.course_id == course.id %}selected{% endif %}>{{ course.course_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Semester</label>
+                    <input type="number" name="semester" class="form-control" value="{{ subject.semester if subject else '' }}" min="1" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Credits</label>
+                    <input type="number" name="credits" class="form-control" value="{{ subject.credits if subject else '' }}" min="1">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Faculty</label>
+                    <select name="faculty_id" class="form-select">
+                        <option value="">Choose faculty</option>
+                        {% for teacher in faculty %}
+                            <option value="{{ teacher.id }}" {% if subject and subject.faculty_id == teacher.id %}selected{% endif %}>{{ teacher.first_name }} {{ teacher.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Save Subject</button>
+                <a href="{{ url_for('erp.subjects') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

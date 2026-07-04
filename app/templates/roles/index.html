@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Roles{% endblock %}
+{% block page_header %}Role Management{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Roles</h1>
+        <p class="text-muted mb-0">Review authorization roles assigned in the system.</p>
+    </div>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Role</th>
+                        <th>Description</th>
+                        <th>Assigned Users</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if roles %}
+                        {% for role in roles %}
+                            <tr>
+                                <td>{{ role.role_name }}</td>
+                                <td>{{ role.description or 'No description' }}</td>
+                                <td>{{ role.users|length }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="3" class="text-center text-muted py-4">No roles have been configured.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

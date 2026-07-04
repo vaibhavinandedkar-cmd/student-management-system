@@ -22,7 +22,7 @@ def get_students():
     Get all students
     """
 
-    students = student_service.get_all_students()
+    students = student_service.get_all()
 
     return jsonify(
         students_response_schema.dump(students)
@@ -34,7 +34,7 @@ def get_student(student_id):
     Get student by ID
     """
 
-    student = student_service.get_student_by_id(student_id)
+    student = student_service.get_by_id(student_id)
 
     if not student:
         return jsonify({
@@ -76,7 +76,7 @@ def create_student():
         address=data.get("address")
     )
 
-    student = student_service.create_student(student)
+    student = student_service.create(student)
 
     return jsonify({
         "success": True,
@@ -91,13 +91,19 @@ def delete_student(student_id):
     Delete student
     """
 
-    deleted = student_service.delete_student(student_id)
-
-    if not deleted:
+    student = student_service.get_by_id(student_id)
+    if not student:
         return jsonify({
             "success": False,
             "message": "Student not found."
         }), 404
+
+    student_service.delete(student)
+
+    return jsonify({
+        "success": True,
+        "message": "Student deleted successfully."
+    }), 200
 
     return jsonify({
         "success": True,

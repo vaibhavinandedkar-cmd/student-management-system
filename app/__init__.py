@@ -3,7 +3,7 @@ from flask import Flask
 from app.config.settings import Config
 from app.config.database import db, migrate
 from app.routes import register_blueprints
-
+from app.errors import register_error_handlers
 
 def create_app():
     """
@@ -24,9 +24,13 @@ def create_app():
 
     # Import all models (VERY IMPORTANT)
     from app.models.student import Student
+    from app import models  # noqa: F401
 
     # Register Routes
     from app.routes.home import home_bp
     register_blueprints(app)
+    
+
+    register_error_handlers(app)
 
     return app

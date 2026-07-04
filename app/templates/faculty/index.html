@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Faculty{% endblock %}
+{% block page_header %}Faculty Management{% endblock %}
+{% block content %}
+<div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Faculty</h1>
+        <p class="text-muted mb-0">View and manage instructor records and department assignments.</p>
+    </div>
+    <a href="{{ url_for('erp.create_faculty') }}" class="btn btn-primary">Add Faculty</a>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if faculty %}
+                        {% for member in faculty %}
+                            <tr>
+                                <td>{{ member.faculty_code }}</td>
+                                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                                <td>{{ member.email }}</td>
+                                <td>{{ member.department.department_name if member.department else 'Unassigned' }}</td>
+                                <td><span class="badge bg-{{ 'success' if member.status == 'Active' else 'secondary' }}">{{ member.status }}</span></td>
+                                <td class="text-end">
+                                    <a href="{{ url_for('erp.edit_faculty', faculty_id=member.id) }}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                                    <form method="post" action="{{ url_for('erp.delete_faculty', faculty_id=member.id) }}" class="d-inline-block">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="6" class="text-center text-muted py-4">No faculty members found.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+<aside class="sidebar bg-dark text-white d-flex flex-column">
+    <div class="sidebar-brand p-4 border-bottom border-secondary">
+        <div class="d-flex align-items-center gap-2">
+            <span class="sidebar-logo bg-primary text-white rounded-circle p-2"><i class="bi bi-school"></i></span>
+            <div>
+                <h5 class="mb-0">Student Management</h5>
+                <small class="text-muted">Enterprise ERP</small>
+            </div>
+        </div>
+    </div>
+    <nav class="sidebar-nav flex-grow-1 px-3 py-4">
+        <ul class="nav nav-pills flex-column gap-1">
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'dashboard' %}active{% endif %}" href="{{ url_for('erp.dashboard') }}">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item mt-3"><span class="text-uppercase text-secondary small">Academic</span></li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'students' %}active{% endif %}" href="{{ url_for('erp.students') }}">
+                    <i class="bi bi-people-fill me-2"></i> Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'departments' %}active{% endif %}" href="{{ url_for('erp.departments') }}">
+                    <i class="bi bi-building me-2"></i> Departments
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'faculty' %}active{% endif %}" href="{{ url_for('erp.faculty') }}">
+                    <i class="bi bi-person-badge me-2"></i> Faculty
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'courses' %}active{% endif %}" href="{{ url_for('erp.courses') }}">
+                    <i class="bi bi-journal-bookmark-fill me-2"></i> Courses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'subjects' %}active{% endif %}" href="{{ url_for('erp.subjects') }}">
+                    <i class="bi bi-book-half me-2"></i> Subjects
+                </a>
+            </li>
+            <li class="nav-item mt-3"><span class="text-uppercase text-secondary small">Operations</span></li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'attendance' %}active{% endif %}" href="{{ url_for('erp.attendance') }}">
+                    <i class="bi bi-calendar-check-fill me-2"></i> Attendance
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'exams' %}active{% endif %}" href="{{ url_for('erp.exams') }}">
+                    <i class="bi bi-pencil-square me-2"></i> Examinations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'fees' %}active{% endif %}" href="{{ url_for('erp.fees') }}">
+                    <i class="bi bi-cash-stack me-2"></i> Fees
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'payments' %}active{% endif %}" href="{{ url_for('erp.payments') }}">
+                    <i class="bi bi-credit-card-fill me-2"></i> Payments
+                </a>
+            </li>
+            <li class="nav-item mt-3"><span class="text-uppercase text-secondary small">Administration</span></li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'users' %}active{% endif %}" href="{{ url_for('erp.users') }}">
+                    <i class="bi bi-person-lines-fill me-2"></i> Users
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'roles' %}active{% endif %}" href="{{ url_for('erp.roles') }}">
+                    <i class="bi bi-shield-lock-fill me-2"></i> Roles
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'notifications' %}active{% endif %}" href="{{ url_for('erp.notifications') }}">
+                    <i class="bi bi-bell-fill me-2"></i> Notifications
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {% if active_page == 'audit_logs' %}active{% endif %}" href="{{ url_for('erp.audit_logs') }}">
+                    <i class="bi bi-journal-text me-2"></i> Audit Logs
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

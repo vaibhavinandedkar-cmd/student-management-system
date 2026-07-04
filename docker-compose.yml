@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: student_mgmt_db
+    environment:
+      POSTGRES_USER: student_app
+      POSTGRES_PASSWORD: Student123
+      POSTGRES_DB: student_management
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U student_app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - student_mgmt_network
+
+  # Flask Application
+  web:
+    build: .
+    container_name: student_mgmt_app
+    command: gunicorn -c gunicorn_config.py run:app
+    environment:
+      FLASK_ENV: production
+      FLASK_DEBUG: 0
+      DATABASE_URL: postgresql://student_app:Student123@db:5432/student_management
+      SECRET_KEY: your-production-secret-key-change-this
+      PORT: 5001
+    ports:
+      - "5001:5001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - student_mgmt_network
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: student_mgmt_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+    networks:
+      - student_mgmt_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  student_mgmt_network:
+    driver: bridge
